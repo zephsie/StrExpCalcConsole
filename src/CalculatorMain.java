@@ -9,8 +9,6 @@ public class CalculatorMain {
 
         Calculator calculator = new Calculator();
 
-        double result = calculator.calculate(expression);
-
-        System.out.println(result);
+        calculator.calculate(expression);
     }
 }
