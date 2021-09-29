@@ -28,7 +28,7 @@ public class CalculatorMain {
 
             output = decimalFormat.format(result).replace(",", ".");
 
-            System.out.println(output.length() <= SPACE ? output : "ERROR");
+            System.out.println(output.length() <= SPACE ? output : "error");
         }
     }
 }

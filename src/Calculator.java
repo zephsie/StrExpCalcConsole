@@ -27,6 +27,8 @@ public class Calculator implements ICalculator {
             items.add(matcher.group());
         }
 
+        System.out.println(items);
+
         return items;
     }
 
@@ -75,6 +77,8 @@ public class Calculator implements ICalculator {
             } while (!stack.isEmpty());
         }
 
+        System.out.println(itemsRPN);
+
         return itemsRPN;
     }
 
@@ -111,6 +115,8 @@ public class Calculator implements ICalculator {
                 itemsRPN.remove(i - 2);
                 itemsRPN.remove(i - 2);
                 itemsRPN.set(i - 2, "" + temp);
+
+                System.out.println(itemsRPN);
 
                 break;
             }
