@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class CalculatorMain {
 
-    public static final int SPACE = 15;
+    private static final int SPACE = 15;
 
     public static void main(String[] args){
-        int beforePoint = 0;
+        int beforePoint;
 
         double result;
 
@@ -19,16 +19,35 @@ public class CalculatorMain {
         String output;
 
         decimalFormat.setGroupingUsed(false);
-        decimalFormat.setMaximumFractionDigits(SPACE - beforePoint - 1);
 
         while (true) {
+            System.out.println("Enter your expression:");
+
             String expression = stringScanner.nextLine();
 
-            result = calculator.calculate(expression);
+            try {
+                result = calculator.calculate(expression);
 
-            output = decimalFormat.format(result).replace(",", ".");
+                beforePoint = ("" + Math.round(result)).length();
 
-            System.out.println(output.length() <= SPACE ? output : "error");
+                decimalFormat.setMaximumFractionDigits(SPACE - beforePoint - 1);
+
+                output = decimalFormat.format(result).replace(",", ".");
+
+                if (Double.isInfinite(result)) {
+                    System.out.println("You can divide by zero");
+                } else if (Double.isNaN(result)) {
+                    System.out.println("NaN");
+                } else if (output.length() > SPACE) {
+                    System.out.println("Your result is too large");
+                } else {
+                    System.out.println("Your result: " + output);
+                }
+            } catch (Exception e) {
+                System.out.println("Enter a valid expression");
+            }
+
+            System.out.println();
         }
     }
 }

@@ -4,12 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calculator implements ICalculator {
-    public double calculate(String expression) {
+    public double calculate(String expression) throws Exception {
         expression = expression
                 .replace(" ", "")
                 .replaceFirst("^-", "0-")
-                .replace("(-", "(0-")
-                .replace(",", ".");
+                .replace("(-", "(0-");
 
         return getAnswer(getReversePolishNotation(getItems(expression)));
     }
@@ -27,7 +26,13 @@ public class Calculator implements ICalculator {
             items.add(matcher.group());
         }
 
-        System.out.println(items);
+        System.out.print("items: ");
+
+        for (String item : items) {
+            System.out.print(item + " ");
+        }
+
+        System.out.println();
 
         return items;
     }
@@ -77,12 +82,21 @@ public class Calculator implements ICalculator {
             } while (!stack.isEmpty());
         }
 
-        System.out.println(itemsRPN);
+        System.out.print("itemsRPN: ");
+
+        for (String itemRPN : itemsRPN) {
+            System.out.print(itemRPN + " ");
+        }
+
+        System.out.println();
 
         return itemsRPN;
     }
 
-    private double getAnswer(ArrayList<String> itemsRPN) {
+    private double getAnswer(ArrayList<String> itemsRPN) throws Exception {
+        if (itemsRPN.contains("(")) {
+            throw new Exception();
+        }
 
         double temp;
 
@@ -116,7 +130,13 @@ public class Calculator implements ICalculator {
                 itemsRPN.remove(i - 2);
                 itemsRPN.set(i - 2, "" + temp);
 
-                System.out.println(itemsRPN);
+                System.out.print("itemsRPN: ");
+
+                for (String itemRPN : itemsRPN) {
+                    System.out.print(itemRPN + " ");
+                }
+
+                System.out.println();
 
                 break;
             }
