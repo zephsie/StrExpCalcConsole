@@ -1,19 +1,29 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.Deque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calculator implements ICalculator {
-    public double calculate(String expression) throws Exception {
+    public double calculate(String expression) throws CalculatorException {
         expression = expression
                 .replace(" ", "")
                 .replaceFirst("^-", "0-")
-                .replace("(-", "(0-");
+                .replace("(-", "(0-")
+                .replace(",", ".");
 
-        return getAnswer(getReversePolishNotation(getItems(expression)));
+        double result;
+
+        try {
+            result = getAnswer(getReversePolishNotation(getItems(expression)));
+        } catch (Exception e) {
+            throw new CalculatorException();
+        }
+
+        return result;
     }
 
-    private ArrayList<String> getItems(String expression){
+    private ArrayList<String> getItems(String expression) {
         ArrayList<String> items = new ArrayList<>();
 
         String regex = "([0-9]+[.]?[0-9]*)|[+\\-*^/()]";
@@ -38,7 +48,7 @@ public class Calculator implements ICalculator {
     }
 
     private ArrayList<String> getReversePolishNotation(ArrayList<String> items) {
-        Stack<String> stack = new Stack<>();
+        Deque<String> stack = new ArrayDeque<>();
 
         ArrayList<String> itemsRPN = new ArrayList<>();
 
@@ -52,6 +62,7 @@ public class Calculator implements ICalculator {
                     while (getPriority(stack.peek()) != 4) {
                         itemsRPN.add(stack.pop());
                     }
+
                     stack.pop();
                 }
                 default -> {
@@ -69,8 +80,8 @@ public class Calculator implements ICalculator {
                                 isPop = true;
                             }
                         } while (isPop && !stack.isEmpty());
-
                     }
+
                     stack.push(item);
                 }
             }
@@ -93,9 +104,9 @@ public class Calculator implements ICalculator {
         return itemsRPN;
     }
 
-    private double getAnswer(ArrayList<String> itemsRPN) throws Exception {
+    private double getAnswer(ArrayList<String> itemsRPN) throws CalculatorException {
         if (itemsRPN.contains("(")) {
-            throw new Exception();
+            throw new CalculatorException();
         }
 
         double temp;

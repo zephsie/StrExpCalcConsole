@@ -1,3 +1,3 @@
 public interface ICalculator {
-    double calculate(String expression) throws Exception;
+    double calculate(String expression) throws CalculatorException;
 }

@@ -5,7 +5,7 @@ public class CalculatorMain {
 
     private static final int SPACE = 15;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int beforePoint;
 
         double result;
@@ -43,8 +43,8 @@ public class CalculatorMain {
                 } else {
                     System.out.println("Your result: " + output);
                 }
-            } catch (Exception e) {
-                System.out.println("Enter a valid expression");
+            } catch (CalculatorException e) {
+                System.out.println("Incorrect expression");
             }
 
             System.out.println();
