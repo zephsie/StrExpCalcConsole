@@ -1,5 +1,3 @@
-package main.java;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -58,16 +56,23 @@ public class Calculator implements ICalculator {
             int itemPrior = getPriority(item);
 
             switch (itemPrior) {
-                case 0 -> itemsRPN.add(item);
-                case 4 -> stack.push(item);
-                case 5 -> {
+                case 0: {
+                    itemsRPN.add(item);
+                    break;
+                }
+                case 4: {
+                    stack.push(item);
+                    break;
+                }
+                case 5: {
                     while (getPriority(stack.peek()) != 4) {
                         itemsRPN.add(stack.pop());
                     }
 
                     stack.pop();
+                    break;
                 }
-                default -> {
+                default: {
                     if (!stack.isEmpty()) {
                         boolean isPop;
 
@@ -159,13 +164,37 @@ public class Calculator implements ICalculator {
     }
 
     private static int getPriority(String item) {
-        return switch (item) {
-            case ")" -> 5;
-            case "(" -> 4;
-            case "^" -> 3;
-            case "*", "/" -> 2;
-            case "+", "-" -> 1;
-            default -> 0;
+        int priority;
+
+        switch (item) {
+            case ")": {
+                priority = 5;
+                break;
+            }
+            case "(": {
+                priority = 4;
+                break;
+            }
+            case "^": {
+                priority = 3;
+                break;
+            }
+            case "*":
+            case "/": {
+                priority = 2;
+                break;
+            }
+            case "+":
+            case "-": {
+                priority = 1;
+                break;
+            }
+            default: {
+                priority = 0;
+                break;
+            }
         };
+
+        return priority;
     }
 }
