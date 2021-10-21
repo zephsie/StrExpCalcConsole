@@ -193,7 +193,7 @@ public class Calculator implements ICalculator {
                 priority = 0;
                 break;
             }
-        };
+        }
 
         return priority;
     }
