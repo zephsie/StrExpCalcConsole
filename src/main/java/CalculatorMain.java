@@ -20,7 +20,7 @@ public class CalculatorMain {
 
         decimalFormat.setGroupingUsed(false);
 
-        System.out.println("Enter your expression:");
+        System.out.println("Enter your expression: ");
 
         String expression = stringScanner.nextLine();
 
