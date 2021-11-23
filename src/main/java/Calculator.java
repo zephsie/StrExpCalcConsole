@@ -172,7 +172,7 @@ public class Calculator implements ICalculator {
                 break;
             }
             case "(": {
-                priority = 4;//nesterenkov krutoy
+                priority = 4;
                 break;
             }
             case "^": {
