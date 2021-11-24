@@ -65,7 +65,9 @@ public class Calculator implements ICalculator {
                     break;
                 }
                 case 5: {
-                    while (getPriority(stack.peek()) != 4) {
+                    while (true) {
+                        assert stack.peek() != null;
+                        if (getPriority(stack.peek()) == 4) break;
                         itemsRPN.add(stack.pop());
                     }
 
